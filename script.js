@@ -1,24 +1,22 @@
 function mincost(arr) {
-    // Create a min-heap using a priority queue
-    let heap = [...arr];
-    heap.sort((a, b) => a - b); // sort in ascending order
+  // Step 1: Create a min-heap (priority queue)
+  let heap = [...arr];
+  heap.sort((a, b) => a - b); // Min-heap using array sorting
 
-    let cost = 0;
+  let cost = 0;
 
-    while (heap.length > 1) {
-        // Remove the two smallest ropes
-        let first = heap.shift();
-        let second = heap.shift();
+  // Step 2: Keep combining the two smallest ropes until one rope remains
+  while (heap.length > 1) {
+    let first = heap.shift(); // smallest
+    let second = heap.shift(); // second smallest
+    let sum = first + second;
+    cost += sum;
 
-        // Add the cost of connecting them
-        let newRope = first + second;
-        cost += newRope;
+    // Insert back the combined rope and keep the heap sorted
+    heap.push(sum);
+    heap.sort((a, b) => a - b);
+  }
 
-        // Insert the new rope back in the heap and keep it sorted
-        heap.push(newRope);
-        heap.sort((a, b) => a - b);
-    }
-
-    return cost;
+  return cost;
 }
 
